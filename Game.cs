@@ -6,52 +6,17 @@ using System.Threading.Tasks;
 
 namespace Hangman
 {
+    
+   
     internal class Game
     {
         public int NrWrongGuesses { get; set; } = 0;
 
-        public int MaxWrongGuesses { get; private set; } = 15;
+        public int MaxWrongGuesses { get; private set; } = 10;
 
         public List<char> GuessedLetters { get; private set; } = new List<char>();
 
-        public Word Word { get; set; } = new Word();
-
-        public HangmanUI Ui { get; set; } = new HangmanUI();
-
-        public void Start()
-        {
-            bool isRunning = true;
-            while (isRunning)
-            {
-                Console.Clear();
-                Ui.ShowWelcomeMessage();
-
-                Ui.DrawHangman();
-
-                Ui.ShowMaskedWord();
-
-                Ui.ShowGuessedLetters();
-
-                Ui.ShowBorderLine();
-
-                char letter = Ui.AskForGuess();
-
-                MakeGuess(letter);
-
-
-                if (IsWordGuessed())
-                {
-                    Ui.ShowWinMessage();
-                    isRunning = false;
-                }
-
-                else if (IsGameOver())
-                {
-                    Ui.ShowLooseMessage();
-                    isRunning = false;
-                }
-            }
-        }
+        public Word Word { get; set; } = new Word();              
 
         public bool IsGameOver()
         {
@@ -63,15 +28,16 @@ namespace Hangman
             return true;
         }
 
+        // Checked in documentation to find the method "IsSuperSet", asked AI to confirm that I had understood it.
         public bool IsWordGuessed()
         {
             var lettersInSecretWord = new HashSet<char>(Word.SecretWord);
 
-            return Word.CorrectGuesses.IsSubsetOf(lettersInSecretWord);
+            return Word.CorrectGuesses.IsSupersetOf(lettersInSecretWord);
             
         }
 
-        public void MakeGuess(char letter)
+        public string MakeGuess(char letter)
         {
             GuessedLetters.Add(letter);
 
@@ -80,15 +46,13 @@ namespace Hangman
             if (!isLetterCorrect)
             {
                 NrWrongGuesses++;
-                Console.WriteLine("Not correct!");               
+                return "\nNot correct!";               
             }
 
             else
             {
-                Console.WriteLine("Yes, good guess!");
-            }
-
-            Thread.Sleep(10000);
+                return "\nYes, good guess!";
+            }            
         }
                
         public string GetMaskedWord()

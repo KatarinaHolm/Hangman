@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Hangman
 {
-    //Om tid och motiverad - hantera tvådelade ord
+    //NOTE TO SELF: If time, add function to handle words in two parts. ex. "merge conflict"
     internal class Word
     {
         //AI suggested private set to stop SecretWord to be changed except for when a word object is created. 
@@ -42,8 +42,8 @@ namespace Hangman
             "dynamic",
             //"type conversion",
             "repository",
-            "pull request",
-            "merge conflict",
+            //"pull request",
+            //"merge conflict",
             "branch",
             "constructor",
             "destructor",
@@ -57,9 +57,7 @@ namespace Hangman
         //AI suggested using constructor to set SecretWords.
         public Word()
         {
-            SecretWord = GenerateSecretWord();
-            //DEBUGG
-            Console.WriteLine("dEBUGG: New Word created");
+            SecretWord = GenerateSecretWord();           
         }
 
         public bool CheckGuess (char letter)

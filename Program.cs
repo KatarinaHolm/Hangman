@@ -4,9 +4,9 @@
     {
         static void Main(string[] args)
         {
-            var Game = new Game();
+            var Hangman = new HangmanUI();
 
-            Game.Start();
+            Hangman.Start();
         }
     }
 }
